@@ -34,7 +34,7 @@
   "dependencies": {
     "angular": "1.4.1",
     "angular-resource": "~1.4.1",
-    "ng-dropdown": "1.0.3"
+    "ng-dropdown": "1.0.4"
   },
   "devDependencies": {
     "angular-route": "~1.4.1"

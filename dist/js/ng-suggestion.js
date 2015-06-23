@@ -1,5 +1,5 @@
 /**
- * ng-suggestion - v1.0.0 -Flexible AngularJS typeahead / autocomplete /
+ * ng-suggestion - v1.0.0 - Flexible AngularJS typeahead / autocomplete /
  * suggestion / UFO search directive
  *
  * @author Ian Kennington Walter <ianwalter@fastmail.com>
@@ -9,41 +9,84 @@
 (function (angular) {
   'use strict';
 
-  angular.module('ng-suggestion', ['ng-dropdown']).service('SuggestionService', function () {}).directive('suggestion', ['$resource', 'SuggestionService', function ($resource, SuggestionService) {
+  angular.module('ng-suggestion', ['ng-dropdown']).service('SuggestionService', ['DropdownService', function (DropdownService) {
+
+    this.inputs = [];
+
+    this.responseHandler = function (input) {
+      var _this = this;
+
+      return function (response) {
+        input.oldParams = input.params;
+        if (response) {
+          DropdownService.open(input.dropdown.id);
+          if (input.responseProperty) {
+            _this.options = response[input.responseProperty];
+          } else {
+            _this.options = response;
+          }
+        }
+      };
+    };
+
+    this.keyUpHandler = function (input) {
+      var _this2 = this;
+
+      return function () {
+        if (!input.model) {
+          DropdownService.close(input.dropdown.id);
+        } else if (input.oldParams !== input.params) {
+          if (input.responseProperty) {
+            input.resource.get(input.params, _this2.responseHandler(input));
+          } else {
+            input.resource.query(input.params, _this2.responseHandler(input));
+          }
+        }
+      };
+    };
+
+    this.focusHandler = function (input) {
+      return function () {
+        if (input.model) {
+          DropdownService.open(input.dropdown.id);
+        }
+      };
+    };
+  }]).directive('suggestion', ['$resource', 'SuggestionService', function ($resource, SuggestionService) {
     return {
       restrict: 'A',
       scope: {
-        suggestion: '=',
-        suggestionModel: '=',
-        suggestionUrl: '=',
-        suggestionParams: '='
+        suggestion: '=?',
+        model: '=suggestionModel',
+        url: '=suggestionUrl',
+        params: '=suggestionParams',
+        dropdown: '=suggestionDropdown',
+        responseProperty: '@?suggestionResponseProperty'
       },
-      link: function link($scope, $element, attrs) {
-        var resource = $resource($scope.suggestionUrl);
+      link: function link($scope, $element) {
+        var input = {
+          id: SuggestionService.inputs.length,
+          resource: $resource($scope.url),
+          responseProperty: $scope.responseProperty
+        };
 
-        function responseHandler(response) {
-          if (response) {
-            $scope.oldParams = $scope.suggestionParams;
-            SuggestionService.showOptions = true;
-            if (attrs.suggestionResponseProperty) {
-              SuggestionService.options = response[attrs.suggestionResponseProperty];
-            } else {
-              SuggestionService.options = response;
-            }
-          }
-        }
+        $scope.suggestion = SuggestionService.inputs[input.id] = input;
 
-        $element.bind('keyup', function () {
-          if (!$scope.suggestionModel) {
-            SuggestionService.showOptions = false;
-          } else if ($scope.oldParams !== $scope.suggestionParams) {
-            if (attrs.suggestionResponseProperty) {
-              resource.get($scope.suggestionParams, responseHandler);
-            } else {
-              resource.query($scope.suggestionParams, responseHandler);
-            }
-          }
+        $scope.$watch('dropdown', function (dropdown) {
+          input.dropdown = dropdown;
         });
+
+        $scope.$watch('model', function (model) {
+          input.model = model;
+        });
+
+        $scope.$watch('params', function (params) {
+          input.params = params;
+        });
+
+        $element.bind('keyup', SuggestionService.keyUpHandler(input));
+
+        $element.bind('focus', SuggestionService.focusHandler(input));
       }
     };
   }]);
