@@ -1,0 +1,42 @@
+{
+  "name": "ng-suggestion",
+  "version": "1.0.0",
+  "description": "Flexible AngularJS typeahead / autocomplete / suggestion / UFO search directive",
+  "keywords": [
+    "ng-suggestion",
+    "typeahead",
+    "autocomplete",
+    "search",
+    "suggestion",
+    "angularjs",
+    "angular"
+  ],
+  "authors": [
+    "Ian Kennington Walter <ianwalter@fastmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "http://ianwalter.github.io/ng-suggestion/",
+  "main": [
+    "dist/js/ng-suggestion.min.js",
+    "README.md"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test",
+    "public",
+    "src",
+    "index.html",
+    "gulpfile.js",
+    "package.json",
+    "karma.conf.js"
+  ],
+  "dependencies": {
+    "angular": "1.4.1",
+    "angular-resource": "~1.4.1",
+    "ng-dropdown": "1.0.3"
+  },
+  "devDependencies": {
+    "angular-route": "~1.4.1"
+  }
+}

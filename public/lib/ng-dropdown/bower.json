@@ -1,0 +1,35 @@
+{
+  "name": "ng-dropdown",
+  "version": "1.0.3",
+  "description": "A simple AngularJS directive to provide dropdown menu functionality!",
+  "keywords": [
+    "ng-dropdown",
+    "dropdown",
+    "menu",
+    "angularjs",
+    "angular"
+  ],
+  "authors": [
+    "Ian Kennington Walter (http://ianvonwalter.com)"
+  ],
+  "license": "MIT",
+  "homepage": "http://ianwalter.github.io/ng-dropdown/",
+  "main": [
+    "dist/js/ng-dropdown.min.js",
+    "README.md"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test",
+    "public",
+    "src",
+    "index.html",
+    "gulpfile.js",
+    "package.json",
+    "karma.conf.js"
+  ],
+  "dependencies": {
+    "angular": ">= 1.2.5"
+  }
+}

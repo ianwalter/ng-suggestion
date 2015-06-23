@@ -1,0 +1,106 @@
+:root {
+  --silver: #bdc3c7;
+  --concrete: #95a5a6;
+  --asbestos: #7f8c8d;
+  --peter-river: #3498db;
+}
+
+.ng-dropdown {
+  background-color: white;
+  cursor: pointer;
+  position: relative;
+}
+
+.ng-dropdown-field {
+  width: 100%;
+  border: 1px solid var(--concrete);
+  border-radius: 2px;
+  text-indent: 6px;
+  min-height: 32px;
+  line-height: 32px;
+}
+.ng-dropdown-field:focus {
+  outline: none;
+  border-color: var(--peter-river);
+  color: var(--peter-river);
+}
+.dropdown-disabled .ng-dropdown-field {
+  border-color: var(--silver);
+}
+
+.ng-dropdown-field:before {
+  font-size: 1.5em;
+  content: "\25be";
+  float: right;
+  color: var(--asbestos);
+  margin-right: 10px;
+}
+.ng-dropdown-field:focus:before {
+  color: var(--peter-river);
+}
+.dropdown-disabled .ng-dropdown-field:before {
+  color: var(--silver);
+}
+
+
+.ng-dropdown-field:hover {
+  border-color: var(--asbestos);
+}
+.ng-dropdown.active .ng-dropdown-field {
+  border-color: var(--peter-river);
+}
+.dropdown-disabled .ng-dropdown-field:hover {
+  border-color: var(--silver);
+}
+
+.ng-dropdown.active .ng-dropdown-field {
+  border-bottom-color: var(--peter-river);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.ng-dropdown-value:before {
+  content: "\00a0";
+  padding-right: 0;
+}
+.ng-dropdown-value {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 20px;
+
+
+}
+.ng-dropdown-value.placeholder {
+  color: var(--silver);
+}
+
+.ng-dropdown-menu {
+  border: 1px solid var(--peter-river);
+  border-top: 0;
+  left: 0;
+  background-color: white;
+  display: none;
+  width: 100%;
+  position: absolute;
+  float: left;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 200px;
+  z-index: 999;
+}
+
+.ng-dropdown-menu .option {
+  cursor: pointer;
+  padding: 5px 10px;
+}
+.ng-dropdown-menu .option.active,
+.ng-dropdown-menu .option:hover {
+  color: white;
+  background-color: var(--peter-river);
+}
+
+/* Used to make the dropdown menu visible */
+.open {
+  display: block;
+}
