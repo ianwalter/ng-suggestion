@@ -3,36 +3,34 @@
 </section>
 <br>
 <section>
-  <div id="dropdown-demo"
-       class="ng-dropdown"
-       dropdown="suggestionService.firstDropdown"
-       dropdown-menu="dropdown-demo-menu"
-       dropdown-open-class="open"
-       dropdown-active-class="active"
-       dropdown-option-class="option"
-       dropdown-prevent-on-click="true">
-    <input ng-model="suggestionService.firstQuery"
-           suggestion
-           suggestion-model="suggestionService.firstQuery"
-           suggestion-dropdown="suggestionService.firstDropdown"
-           suggestion-url="suggestionService.firstLookupUrl"
+  <div dropdown="one.dropdown" class="ng-dropdown">
+    <input ng-model="one.query"
+           dropdown-field
+           suggestion="one.input"
+           suggestion-model="one.query"
+           suggestion-dropdown="one.dropdown"
+           suggestion-url="one.url"
            suggestion-response-property="Search"
-           suggestion-params="{ s: suggestionService.firstQuery }"
+           suggestion-params="{ s: one.query }"
            class="ng-dropdown-field"
-           placeholder="Search for move titles..." />
-    <div id="dropdown-demo-menu" class="ng-dropdown-menu">
-      <div ng-repeat="option in suggestionService.options"
+           placeholder="Search for movie titles..." />
+    <div dropdown-menu
+         class="ng-dropdown-menu"
+         ng-show="one.input.model.length">
+      <div ng-repeat="option in one.input.options"
            ng-bind="option.Title"
-           ng-click="suggestionService.firstQuery = option.Title;
-                     suggestionService.firstSelection = option"
+           ng-click="one.query = option.Title; one.selection = option"
            class="option"></div>
+      <div class="padding-10 align-center"
+           ng-if="!one.input.options && one.input.model.length">
+        <small ng-hide="one.input.loading">(No results found)</small>
+        <small ng-show="one.input.loading">Loading...</small>
+      </div>
     </div>
   </div>
 </section>
 <br>
 <section>
   <small>Full option object:</small>
-  <pre class="margin-0"
-       ng-bind="toJson(suggestionService.firstSelection)"></pre>
+  <pre class="margin-0" ng-bind="toJson(one.selection)"></pre>
 </section>
-<br>

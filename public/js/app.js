@@ -19,7 +19,7 @@ requirejs.config({
       'public/lib/angular-resource/angular-resource.min'
     ],
     'ng-dropdown': [
-      'public/lib/ng-dropdown/dist/js/ng-dropdown.min'
+      'public/lib/ng-dropdown/dist/js/ng-dropdown'
     ],
     'ng-suggestion': [
       'dist/js/ng-suggestion'
@@ -63,7 +63,9 @@ require(
             return JSON.stringify(obj);
           };
 
-          SuggestionService.firstLookupUrl = 'http://www.omdbapi.com/';
+          $scope.one = {
+            url: 'http://www.omdbapi.com/'
+          };
         }
       ]);
 
