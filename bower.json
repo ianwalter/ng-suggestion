@@ -1,7 +1,7 @@
 {
   "name": "ng-suggestion",
-  "version": "1.0.0",
-  "description": "Flexible AngularJS typeahead / autocomplete / suggestion / UFO search directive",
+  "version": "1.0.1",
+  "description": "Flexible AngularJS typeahead / autocomplete / suggestion / predictive search directive",
   "keywords": [
     "ng-suggestion",
     "typeahead",
