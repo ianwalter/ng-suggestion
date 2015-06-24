@@ -32,7 +32,7 @@
     "karma.conf.js"
   ],
   "dependencies": {
-    "angular": "1.4.1",
+    "angular": "~1.4.1",
     "angular-resource": "~1.4.1",
     "ng-dropdown": "~2.0.0"
   },
