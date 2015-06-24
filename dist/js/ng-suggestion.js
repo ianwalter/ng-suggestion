@@ -36,18 +36,55 @@
       var _this = this;
 
       return function ($event) {
-        if ($event.keyCode === 27 || $event.keyCode === 9) {
+        if ($event.keyCode === 8 || $event.keyCode === 46) {
+          // Backspace
+          if (input.deleteHandler) {
+            // or Delete
+            input.deleteHandler($event);
+          }
+        }
+
+        if ($event.keyCode === 27) {
           // Esc or Tab
-          DropdownService.close(input.dropdown.id);
+          input.element[0].blur();
         } else if (!input.model) {
           DropdownService.close(input.dropdown.id);
-        } else if (input.oldParams !== input.params) {
+        } else if (input.oldParams !== input.params && [9, 27, 40, 38, 13].indexOf($event.keyCode) === -1) {
           input.loading = true;
           if (input.responseProperty) {
             input.resource.get(input.params, _this.responseHandler(input));
           } else {
             input.resource.query(input.params, _this.responseHandler(input));
           }
+        }
+      };
+    };
+
+    this.keydownHandler = function (input) {
+      return function ($event) {
+        var currentOption = input.dropdown.currentOption;
+        if (currentOption && $event.keyCode === 13) {
+          // Enter
+          input.dropdown.disableClick = false;
+        }
+      };
+    };
+
+    this.focusHandler = function (input) {
+      return function () {
+        input.dropdown.disableClick = true;
+        if (input.model) {
+          DropdownService.open(input.dropdown.id);
+        }
+      };
+    };
+
+    this.blurHandler = function (input) {
+      return function () {
+        if (!input.dropdown.isInsideMenu) {
+          DropdownService.close(input.dropdown.id);
+        } else {
+          input.dropdown.disableClick = false;
         }
       };
     };
@@ -60,6 +97,7 @@
         url: '=suggestionUrl',
         params: '=suggestionParams',
         dropdown: '=suggestionDropdown',
+        deleteHandler: '=?suggestionDeleteHandler',
         responseProperty: '@?suggestionResponseProperty'
       },
       link: function link($scope, $element) {
@@ -67,12 +105,18 @@
           id: SuggestionService.inputs.length,
           element: $element,
           resource: $resource($scope.url),
-          responseProperty: $scope.responseProperty
-        };
+          responseProperty: $scope.responseProperty,
+          deleteHandler: $scope.deleteHandler
+        },
+            once = false;
 
         $scope.suggestion = SuggestionService.inputs[input.id] = input;
 
         $scope.$watch('dropdown', function (dropdown) {
+          if (!once) {
+            dropdown.disableDocumentClick = true;
+            once = true;
+          }
           input.dropdown = dropdown;
         });
 
@@ -86,6 +130,12 @@
         });
 
         $element.bind('keyup paste', SuggestionService.keyUpHandler(input));
+
+        $element.bind('keydown', SuggestionService.keydownHandler(input));
+
+        $element.bind('focus', SuggestionService.focusHandler(input));
+
+        $element.bind('blur', SuggestionService.blurHandler(input));
       }
     };
   }]);
