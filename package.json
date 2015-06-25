@@ -1,6 +1,6 @@
 {
   "name": "ng-suggestion",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Flexible AngularJS typeahead / autocomplete / suggestion / predictive search directive",
   "main": "dist/js/ng-suggestion.min.js",
   "devDependencies": {
