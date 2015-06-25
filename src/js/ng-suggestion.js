@@ -1,6 +1,6 @@
 /**
- * ng-suggestion - v1.0.0 - Flexible AngularJS typeahead / autocomplete /
- * suggestion / UFO search directive
+ * ng-suggestion - v1.0.1 - Flexible AngularJS typeahead / autocomplete /
+ * suggestion / predictive search directive
  *
  * @author Ian Kennington Walter <ianwalter@fastmail.com>
  */
@@ -120,15 +120,14 @@
 
             $scope.$watch('dropdown', function(dropdown) {
               if (!once) {
+                input.dropdown = dropdown;
                 dropdown.disableDocumentClick = true;
                 once = true;
               }
-              input.dropdown = dropdown;
             });
 
             $scope.$watch('model', function(model) {
               input.model = model;
-              delete SuggestionService.options;
             });
 
             $scope.$watch('params', function(params) {

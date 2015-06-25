@@ -66,6 +66,10 @@ require(
           $scope.one = {
             url: 'http://www.omdbapi.com/'
           };
+
+          $scope.deleteMessage = function() {
+            console.log('delete');
+          }
         }
       ]);
 
