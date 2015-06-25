@@ -68,8 +68,18 @@ require(
           };
 
           $scope.deleteMessage = function() {
-            console.log('delete');
-          }
+            return function() {
+              console.log('delete', $scope.one.query);
+            }
+          };
+
+          var inputWatch = $scope.$watch('one.input', function(input) {
+            if (input) {
+              SuggestionService.deleteHandlers[input.id] =
+                $scope.deleteMessage();
+              inputWatch();
+            }
+          });
         }
       ]);
 

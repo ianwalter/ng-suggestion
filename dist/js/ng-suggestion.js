@@ -1,6 +1,6 @@
 /**
  * ng-suggestion - v1.0.1 - Flexible AngularJS typeahead / autocomplete /
- * suggestion / UFO search directive
+ * suggestion / predictive search directive
  *
  * @author Ian Kennington Walter <ianwalter@fastmail.com>
  */
@@ -12,6 +12,7 @@
   angular.module('ng-suggestion', ['ng-dropdown']).service('SuggestionService', ['DropdownService', function (DropdownService) {
 
     this.inputs = [];
+    this.deleteHandlers = {};
 
     this.responseHandler = function (input) {
       return function (response) {
@@ -38,9 +39,9 @@
       return function ($event) {
         if ($event.keyCode === 8 || $event.keyCode === 46) {
           // Backspace
-          if (input.deleteHandler) {
+          if (_this.deleteHandlers[input.id]) {
             // or Delete
-            input.deleteHandler($event);
+            _this.deleteHandlers[input.id]($event);
           }
         }
 
@@ -97,7 +98,6 @@
         url: '=suggestionUrl',
         params: '=suggestionParams',
         dropdown: '=suggestionDropdown',
-        deleteHandler: '=?suggestionDeleteHandler',
         responseProperty: '@?suggestionResponseProperty'
       },
       link: function link($scope, $element) {
@@ -105,27 +105,23 @@
           id: SuggestionService.inputs.length,
           element: $element,
           resource: $resource($scope.url),
-          responseProperty: $scope.responseProperty,
-          deleteHandler: $scope.deleteHandler
-        },
-            once = false;
+          responseProperty: $scope.responseProperty
+        };
 
         $scope.suggestion = SuggestionService.inputs[input.id] = input;
 
-        $scope.$watch('dropdown', function (dropdown) {
-          if (!once) {
-            input.dropdown = dropdown;
-            dropdown.disableDocumentClick = true;
-            once = true;
-          }
-        });
-
-        $scope.$watch('model', function (model) {
-          input.model = model;
+        var dropdownWatch = $scope.$watch('dropdown', function (dropdown) {
+          dropdown.disableDocumentClick = true;
+          input.dropdown = dropdown;
+          dropdownWatch();
         });
 
         $scope.$watch('params', function (params) {
           input.params = params;
+        });
+
+        $scope.$watch('model', function (model) {
+          input.model = model;
         });
 
         $element.bind('keyup paste', SuggestionService.keyUpHandler(input));

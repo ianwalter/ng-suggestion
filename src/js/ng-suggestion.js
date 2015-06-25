@@ -14,6 +14,7 @@
       function(DropdownService) {
 
         this.inputs = [];
+        this.deleteHandlers = {};
 
         this.responseHandler = function(input) {
           return (response) => {
@@ -40,8 +41,8 @@
         this.keyUpHandler = function(input) {
           return ($event) => {
             if ($event.keyCode === 8 || $event.keyCode === 46) { // Backspace
-              if (input.deleteHandler) {                         // or Delete
-                input.deleteHandler($event);
+              if (this.deleteHandlers[input.id]) {               // or Delete
+                this.deleteHandlers[input.id]($event);
               }
             }
 
@@ -103,35 +104,30 @@
             url: '=suggestionUrl',
             params: '=suggestionParams',
             dropdown: '=suggestionDropdown',
-            deleteHandler: '=?suggestionDeleteHandler',
             responseProperty: '@?suggestionResponseProperty'
           },
           link: function($scope, $element) {
             var input = {
-                id: SuggestionService.inputs.length,
-                element: $element,
-                resource: $resource($scope.url),
-                responseProperty: $scope.responseProperty,
-                deleteHandler: $scope.deleteHandler
-              },
-              once = false;
+              id: SuggestionService.inputs.length,
+              element: $element,
+              resource: $resource($scope.url),
+              responseProperty: $scope.responseProperty
+            };
 
             $scope.suggestion = SuggestionService.inputs[input.id] = input;
 
-            $scope.$watch('dropdown', function(dropdown) {
-              if (!once) {
-                input.dropdown = dropdown;
-                dropdown.disableDocumentClick = true;
-                once = true;
-              }
-            });
-
-            $scope.$watch('model', function(model) {
-              input.model = model;
+            var dropdownWatch = $scope.$watch('dropdown', function(dropdown) {
+              dropdown.disableDocumentClick = true;
+              input.dropdown = dropdown;
+              dropdownWatch();
             });
 
             $scope.$watch('params', function(params) {
               input.params = params;
+            });
+
+            $scope.$watch('model', function(model) {
+              input.model = model;
             });
 
             $element.bind('keyup paste', SuggestionService.keyUpHandler(input));

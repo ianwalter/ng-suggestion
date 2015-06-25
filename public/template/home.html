@@ -1,4 +1,9 @@
 <section>
+  <small>Full option object:</small>
+  <pre class="margin-0" ng-bind="toJson(one.selection)"></pre>
+</section>
+<br>
+<section>
   <div dropdown="one.dropdown" class="ng-dropdown">
     <input ng-model="one.query"
            dropdown-field
@@ -7,7 +12,6 @@
            suggestion-dropdown="one.dropdown"
            suggestion-url="one.url"
            suggestion-response-property="Search"
-           suggestion-delete-handler="deleteMessage"
            suggestion-params="{ s: one.query }"
            class="ng-dropdown-field"
            placeholder="Search for movie titles..." />
@@ -25,9 +29,4 @@
       </div>
     </div>
   </div>
-</section>
-<br>
-<section>
-  <small>Full option object:</small>
-  <pre class="margin-0" ng-bind="toJson(one.selection)"></pre>
 </section>
