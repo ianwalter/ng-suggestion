@@ -37,17 +37,17 @@ var app = angular.module('your-wonderful-app', ['ng-suggestion'])
        }"/>
 ```
 
-```dropdown-field```
+```dropdown-field``` Needs Info
 
-```suggestion```
+```suggestion``` Needs Info
 
-```suggestion-model```
+```suggestion-model``` Needs Info
 
-```suggestion-dropdown```
+```suggestion-dropdown``` Needs Info
 
 ```suggestion-url``` The URL of the API that will return the list of suggestions.
 
-```suggestion-delete-handler```
+```suggestion-delete-handler``` Needs Info
 
 ```suggestion-params``` The parameters to be used to query the identified API.
 
@@ -57,7 +57,7 @@ populated list of options. The value is a boolean; the default behavior is not t
 ```suggestion-enter-action``` (optional) Executes a function when the enter key is hit.
 The value must be a function.
 
-```suggestion-response-property```
+```suggestion-response-property``` Needs Info
 
 
 This README was last updated on 10/5/2015 by [Jake Lipson](jacob@luvolearn.com)
