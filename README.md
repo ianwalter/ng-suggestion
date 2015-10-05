@@ -58,3 +58,6 @@ populated list of options. The value is a boolean; the default behavior is not t
 The value must be a function.
 
 ```suggestion-response-property```
+
+
+This README was last updated on 10/5/2015 by [Jake Lipson](jacob@luvolearn.com)
