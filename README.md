@@ -25,7 +25,8 @@ var app = angular.module('your-wonderful-app', ['ng-suggestion'])
 
 #### Using ng-suggestion
 ```html
-<input suggestion="courseService.courseLookup"
+<input dropdown-field
+       suggestion="courseService.courseLookup"
        suggestion-model="courseService.current.courseName"
        suggestion-dropdown="courseService.courseLookupDropdown"
        suggestion-url="courseService.courseLookupUrl"
@@ -35,3 +36,25 @@ var app = angular.module('your-wonderful-app', ['ng-suggestion'])
          subject_id: courseService.current.subject.id
        }"/>
 ```
+
+```dropdown-field```
+
+```suggestion```
+
+```suggestion-model```
+
+```suggestion-dropdown```
+
+```suggestion-url``` The URL of the API that will return the list of suggestions.
+
+```suggestion-delete-handler```
+
+```suggestion-params``` The parameters to be used to query the identified API.
+
+```suggestion-free-text``` (optional) Allows the selection of items that are not in the
+populated list of options. The value is a boolean; the default behavior is not to allow.
+
+```suggestion-enter-action``` (optional) Executes a function when the enter key is hit.
+The value must be a function.
+
+```suggestion-response-property```
