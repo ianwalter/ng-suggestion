@@ -1,8 +1,5 @@
-# [ng-suggestion](http://ianwalter.github.io/ng-suggestion/)
+# [ng-suggestion](https://github.com/flashnotes/ng-suggestion/)
 *Flexible AngularJS typeahead / autocomplete / suggestion / predictive search directive*
-
-A wise man once said, *"I don't have time for docs right now just read the source."*  
-&mdash;&nbsp; [Ian Kennington Walter](http://iankwalter.com)
 
 #### Dependencies
 * [ng-dropdown](https://github.com/flashnotes/ng-dropdown/)
@@ -20,7 +17,7 @@ css/ng-suggestion.min.css, but it's not necessary, only recommended.
 #### Setup for ng-suggestion
 
 ```javascript
-var app = angular.module('your-wonderful-app', ['ng-suggestion'])
+var app = angular.module('myApp', ['ng-suggestion'])
 ```
 
 #### Using ng-suggestion
@@ -30,11 +27,10 @@ var app = angular.module('your-wonderful-app', ['ng-suggestion'])
        suggestion-model="courseService.current.courseName"
        suggestion-dropdown="courseService.courseLookupDropdown"
        suggestion-url="courseService.courseLookupUrl"
-{#       suggestion-delete-handler="courseService.deleteNewSubject()"#}
        suggestion-params="{
          q: courseService.current.courseName,
          subject_id: courseService.current.subject.id
-       }"/>
+       }" />
 ```
 
 ```dropdown-field``` Needs Info
@@ -58,6 +54,3 @@ populated list of options. The value is a boolean; the default behavior is not t
 The value must be a function.
 
 ```suggestion-response-property``` Needs Info
-
-
-*This README was last updated on 10/5/2015 by [Jake Lipson](jacob@luvolearn.com)*
