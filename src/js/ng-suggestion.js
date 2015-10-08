@@ -70,7 +70,8 @@
             if ($event.keyCode === 13 && ((currentOption && !freeText) || freeText)) { // Enter
               input.dropdown.disableClick = false;
               if (enterAction) {
-                enterAction();
+                var action = enterAction();
+                action(input.model);
               }
             }
           };
@@ -110,7 +111,7 @@
             params: '=suggestionParams',
             dropdown: '=suggestionDropdown',
             freeText: '=suggestionFreeText',
-            enterAction: '=suggestionEnterAction',
+            enterAction: '&suggestionEnterAction',
             responseProperty: '@?suggestionResponseProperty'
           },
           link: function($scope, $element) {
@@ -118,6 +119,8 @@
               id: SuggestionService.inputs.length,
               element: $element,
               resource: $resource($scope.url),
+              freeText: $scope.freeText,
+              enterAction: $scope.enterAction,
               responseProperty: $scope.responseProperty
             };
 
