@@ -70,7 +70,11 @@
           input.dropdown.disableClick = false;
           if (action) {
             input.element[0].blur();
-            action(input.model);
+            if (currentOption) {
+              action(currentOption[0].textContent);
+            } else {
+              action(input.model);
+            }
           }
         }
       };
