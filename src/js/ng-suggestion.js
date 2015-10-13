@@ -65,11 +65,11 @@
         this.keydownHandler = function(input) {
           return ($event) => {
             var currentOption = input.dropdown.currentOption;
+            var action = input.enterAction();
             if ($event.keyCode === 13 && ((currentOption && !input.freeText) ||
                 input.freeText)) { // Enter
               input.dropdown.disableClick = false;
-              if (input.enterAction) {
-                var action = input.enterAction();
+              if (action) {
                 input.element[0].blur();
                 action(input.model);
               }
