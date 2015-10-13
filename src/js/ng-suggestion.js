@@ -1,5 +1,5 @@
 /**
- * ng-suggestion - v1.0.2 - Flexible AngularJS typeahead / autocomplete /
+ * ng-suggestion - v1.1.0 - Flexible AngularJS typeahead / autocomplete /
  * suggestion / predictive search directive
  *
  * @author Ian Kennington Walter <ianwalter@fastmail.com>
