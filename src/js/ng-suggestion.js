@@ -70,6 +70,7 @@
               input.dropdown.disableClick = false;
               if (input.enterAction) {
                 var action = input.enterAction();
+                input.element[0].blur();
                 action(input.model);
               }
             }
