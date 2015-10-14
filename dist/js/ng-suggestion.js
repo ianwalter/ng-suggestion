@@ -1,5 +1,5 @@
 /**
- * ng-suggestion - v1.0.2 - Flexible AngularJS typeahead / autocomplete /
+ * ng-suggestion - v1.1.0 - Flexible AngularJS typeahead / autocomplete /
  * suggestion / predictive search directive
  *
  * @author Ian Kennington Walter <ianwalter@fastmail.com>
@@ -64,9 +64,18 @@
     this.keydownHandler = function (input) {
       return function ($event) {
         var currentOption = input.dropdown.currentOption;
-        if (currentOption && $event.keyCode === 13) {
+        var action = input.enterAction();
+        if ($event.keyCode === 13 && (currentOption && !input.freeText || input.freeText)) {
           // Enter
           input.dropdown.disableClick = false;
+          if (action) {
+            input.element[0].blur();
+            if (currentOption) {
+              action(currentOption[0].textContent);
+            } else {
+              action(input.model);
+            }
+          }
         }
       };
     };
@@ -98,6 +107,8 @@
         url: '=suggestionUrl',
         params: '=suggestionParams',
         dropdown: '=suggestionDropdown',
+        freeText: '=suggestionFreeText',
+        enterAction: '&suggestionEnterAction',
         responseProperty: '@?suggestionResponseProperty'
       },
       link: function link($scope, $element) {
@@ -105,6 +116,8 @@
           id: SuggestionService.inputs.length,
           element: $element,
           resource: $resource($scope.url),
+          freeText: $scope.freeText,
+          enterAction: $scope.enterAction,
           responseProperty: $scope.responseProperty
         };
 
